@@ -107,4 +107,6 @@ else:
     
 
     st.markdown("""<style> .st-cs { background-color: rgb(189 19 65);}</style>""", unsafe_allow_html=True )
+    st.markdown("""<style> .st-h7 { background-color:  rgb(189 19 65);}</style>""", unsafe_allow_html=True )
+   
 
