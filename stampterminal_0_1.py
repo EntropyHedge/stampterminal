@@ -102,9 +102,9 @@ if tool == "What if?":
 
     chart_data = pd.DataFrame()
     chart_data.index = market_cap_x
-    chart_data[f"Price per {token1}"] = price_per_coin_y
+    chart_data[f"Price per {token1} at x Market Cap"] = price_per_coin_y
     st.markdown("<br>", unsafe_allow_html=True)
-    st.area_chart(chart_data, x = "Market Cap")
+    st.area_chart(chart_data)
 
 else:
     st.markdown('<h2 style="text-align: center; color:white">SRC20 Progress Legend</h2>', unsafe_allow_html=True)
