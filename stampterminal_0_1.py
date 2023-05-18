@@ -103,7 +103,7 @@ else:
 
     for i in data.index:
     
-        st.progress(data.progress[i], text=f"{data.token[i]} Progress: {data.progress[i]}%")
+        st.progress(float(data.progress[i])/100, text=f"{data.token[i]} Progress: {data.progress[i]}%")
     
 
     st.markdown("""<style> .st-h5 {
