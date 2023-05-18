@@ -51,7 +51,6 @@ with st.sidebar:
         if custom_data:
             custum_marketcap = st.number_input("Marketcap in Million $", 10)
             custum_marketcap = custum_marketcap * 1000000
-
     #progress tool
     else:
        st.markdown("Enjoy")
@@ -95,21 +94,26 @@ if tool == "What if?":
     st.markdown(f'<p style="text-align: center">Worth of a single "{token1}" mint at "{token2}" marketcap: <span class="important">{str(mint_value)}</span>$</p>', unsafe_allow_html=True)
     st.markdown(f'<p style="text-align: center">That is <span class="important">{price_per_token}$</span> per "{token1}"</p>', unsafe_allow_html=True)
 
-    #st.table(fd)
+    market_cap_x = []
+    price_per_coin_y = []
+    for i in range(1, 1000):
+        market_cap_x.append(i * 1000000)
+        price_per_coin_y.append(round(i * 1000000 / fd.supply[index1[0]],8))
+
+    chart_data = pd.DataFrame()
+    chart_data.index = market_cap_x
+    chart_data[f"Price per {token1}"] = price_per_coin_y
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.area_chart(chart_data)
 
 else:
     st.markdown('<h2 style="text-align: center; color:white">SRC20 Progress Legend</h2>', unsafe_allow_html=True)
 
     data = pd.read_csv("mint_progress.csv")
-
+    st.markdown("""<style> .st-cs { background-color: rgb(189 19 65);}</style>""", unsafe_allow_html=True )
     for i in data.index:
-        if float(data.progress[i]) > 100:
-            st.progress(100, text=f"{data.token[i]} Progress: 100%")
-        else:
-            st.progress(float(data.progress[i]/100), text=f"{data.token[i]} Progress: {round(data.progress[i],3)}%")
+    
+        st.progress(float(data.progress[i])/100, text=f"{data.token[i]} Progress: {data.progress[i]}%")
     
 
-    st.markdown("""<style> .st-cs { background-color: rgb(189 19 65);}</style>""", unsafe_allow_html=True )
-    st.markdown("""<style> .st-h7 { background-color:  rgb(189 19 65);}</style>""", unsafe_allow_html=True )
-   
 
