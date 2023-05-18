@@ -106,7 +106,5 @@ else:
         st.progress(float(data.progress[i])/100, text=f"{data.token[i]} Progress: {data.progress[i]}%")
     
 
-    st.markdown("""<style> .st-h5 {
-    background-color: rgb(189 19 65);
-    }</style>""", unsafe_allow_html=True )
+    st.markdown("""<style> .st-cs { background-color: rgb(189 19 65);}</style>""", unsafe_allow_html=True )
 
