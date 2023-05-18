@@ -38,7 +38,6 @@ st.divider()
 
 #get brc20_token data 
 df = brc20_token()
-df = df.drop(0)
 with st.sidebar:
     st.markdown('<h2 style="text-align: center; color:white">Settings</h2>', unsafe_allow_html=True)
     token1 = st.selectbox("Select SRC-20 Token", fd.token)
