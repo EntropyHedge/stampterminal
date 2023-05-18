@@ -103,7 +103,7 @@ else:
 
     for i in data.index:
         if float(data.progress[i]) > 100:
-            st.progress(1, text=f"{data.token[i]} Progress: {data.progress[i]}%")
+            st.progress(100, text=f"{data.token[i]} Progress: 100%")
         else:
             st.progress(float(data.progress[i])/100, text=f"{data.token[i]} Progress: {data.progress[i]}%")
     
