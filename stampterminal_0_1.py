@@ -7,6 +7,41 @@ import matplotlib.pyplot as plt
 
 #data functions 
 
+
+def get_address_data(address):
+
+    site = "https://xchain.io/api/balances/" + address
+    
+    r = requests.get(site)
+    a = r.json()
+    a = json.dumps(a)
+    
+    return(pd.read_json(a))
+
+def get_assets(dataframe):
+    
+    asset_list = []
+    asset_quantity = []
+    asset_value = []
+
+    for index in dataframe.index:
+
+        asset_list.append(dataframe.data[index]["asset"])
+        asset_quantity.append(dataframe.data[index]["quantity"])  
+        asset_value.append(dataframe.data[index]["estimated_value"]["usd"])
+    
+    user_dataframe = pd.DataFrame()
+
+    user_dataframe["asset"] = asset_list
+    user_dataframe["quantity"] = asset_quantity
+    user_dataframe["value"] = asset_value
+    
+    return(user_dataframe)
+
+
+
+
+
 def brc20_token():
     site = "https://brc-20.io/api_prices"
     r = requests.get(site)
@@ -34,13 +69,17 @@ st.markdown("<style> span.tilealpha {color:rgb(189, 19, 65)} span.important {col
 
 ##Title
 st.markdown('<h1 style="text-align: center; color: white;">Stamps Terminal <span class = "tilealpha">α</span></h1>', unsafe_allow_html=True)
+tool = ""
+if tool == "Wallet Checker":
+    st.markdown(f'{user_address}')
+
 st.divider()
 
 #get brc20_token data 
 df = brc20_token()
 with st.sidebar:
     st.markdown('<h2 style="text-align: center; color:white">Select Tool</h2>', unsafe_allow_html=True)
-    tool = st.radio('', ["SRC20 Progress","What if?"])
+    tool = st.radio('', ["SRC20 Progress","What if?","Wallet Checker"])
     #what if tool 
     if tool == "What if?":
         st.markdown('<h2 style="text-align: center; color:white">Settings</h2>', unsafe_allow_html=True)
@@ -52,10 +91,13 @@ with st.sidebar:
             custum_marketcap = st.number_input("Marketcap in Million $", 10)
             custum_marketcap = custum_marketcap * 1000000
     #progress tool
-    else:
+    if tool == "SRC20 Progress":
        st.markdown("Enjoy")
 
 
+    if tool == "Wallet Checker":
+
+        user_address = st.text_input("Enter Address", value = "")
 
         
     st.image("https://i.ibb.co/6nnb854/qr-code.png")
@@ -106,7 +148,7 @@ if tool == "What if?":
     st.markdown("<br>", unsafe_allow_html=True)
     st.area_chart(chart_data)
 
-else:
+if tool == "SRC20 Progress":
     st.markdown('<h2 style="text-align: center; color:white">SRC20 Progress Legend</h2>', unsafe_allow_html=True)
 
     data = pd.read_csv("mint_progress.csv")
@@ -119,6 +161,32 @@ else:
             st.progress(float(data.progress[i])/100, text=f"{data.token[i]} Progress: {round(data.progress[i],4)}%")
             
         
+if tool == "Wallet Checker":
+    
+
+    if user_address:
+        try:
+            user_data = get_address_data(user_address)
+            user_data = get_assets(user_data)
+
+            for i in user_data.index:
+                st.markdown(f'<img src="https://xchain.io/icon/{user_data["asset"][i]}.png"></img> Asset: {user_data["asset"][i]} | Amount: {user_data["quantity"][i]} | Value: {user_data["value"][i]}$', unsafe_allow_html=True)
+        
+        except:
+
+            st.markdown("Invalid Wallet")
+
+    else:
+
+        st.markdown("No address")
+
+
+
+
+
+    
+
+
     
 
 
