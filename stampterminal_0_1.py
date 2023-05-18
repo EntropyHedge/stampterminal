@@ -102,8 +102,10 @@ else:
     data = pd.read_csv("mint_progress.csv")
 
     for i in data.index:
-    
-        st.progress(float(data.progress[i])/100, text=f"{data.token[i]} Progress: {data.progress[i]}%")
+        if float(data.progress[i]) > 100:
+            st.progress(1, text=f"{data.token[i]} Progress: {data.progress[i]}%")
+        else:
+            st.progress(float(data.progress[i])/100, text=f"{data.token[i]} Progress: {data.progress[i]}%")
     
 
     st.markdown("""<style> .st-cs { background-color: rgb(189 19 65);}</style>""", unsafe_allow_html=True )
