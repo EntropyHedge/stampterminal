@@ -49,7 +49,8 @@ with st.sidebar:
         custom_data = st.checkbox("Use your own data?")
 
         if custom_data:
-            custum_marketcap = st.number_input("Marketcap")
+            custum_marketcap = st.number_input("Marketcap in Million", 10)
+            custum_marketcap = custum_marketcap * 1000000
 
     #progress tool
     else:
