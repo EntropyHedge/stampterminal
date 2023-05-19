@@ -178,7 +178,7 @@ if tool == "Wallet Checker":
             for i in user_data.index:
                 st.markdown(f'<img src="https://xchain.io/icon/{user_data["asset"][i]}.png"></img> Asset: {user_data["asset"][i]} | Amount: {user_data["quantity"][i]} | Value: {user_data["value"][i]}$', unsafe_allow_html=True)
             
-            for i in range(0,5):
+            for i in range(0,3):
                 st.markdown("<br><br>", unsafe_allow_html=True)
                 
             st.markdown(f'Total asset value: {asset_value_total}$', unsafe_allow_html=True)
