@@ -172,7 +172,7 @@ if tool == "Wallet Checker":
             #calculate wallet worth 
             asset_value_total = 0
             for  t in user_data.index:
-                asset_value_total = asset_value_total +  float(user_data["quantity"][i]) * float(user_data["value"][i])
+                asset_value_total = asset_value_total +  float(user_data["quantity"][t]) * float(user_data["value"][t])
   
 
             for i in user_data.index:
