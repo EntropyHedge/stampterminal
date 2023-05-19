@@ -169,12 +169,19 @@ if tool == "Wallet Checker":
             user_data = get_address_data(user_address)
             user_data = get_assets(user_data)
             
-            
+            #calculate wallet worth 
+            asset_value_total = 0
+            for  t in user_data.index:
+                asset_value_total = asset_value_total +  user_data["quantity"][i] * user_data["value"][i]
   
 
             for i in user_data.index:
                 st.markdown(f'<img src="https://xchain.io/icon/{user_data["asset"][i]}.png"></img> Asset: {user_data["asset"][i]} | Amount: {user_data["quantity"][i]} | Value: {user_data["value"][i]}$', unsafe_allow_html=True)
             
+            for i in range(0,5):
+                st.markdown("<br><br>", unsafe_allow_html=True)
+                
+            st.markdown(f'Total asset value: {asset_value_total}$', unsafe_allow_html=True)
            
         except:
 
