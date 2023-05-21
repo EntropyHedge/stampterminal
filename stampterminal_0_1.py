@@ -4,7 +4,7 @@ import json
 import requests
 import matplotlib.pyplot as plt
 
-
+st.set_page_config(page_title="StampTerminal", page_icon = "https://pbs.twimg.com/profile_images/1658207340414246912/kBzaAc9o_400x400.jpg")
 #data functions 
 
 
